@@ -1,0 +1,64 @@
+html {
+	height: 100%;
+	@include box-sizing(border-box);
+}
+*, *:before, *:after {
+	@include box-sizing(inherit);
+}
+
+body {
+	height: 100%;
+	background: url(/img/bg-light.jpg);
+}
+
+a {
+	color: $blue;
+	outline: none;
+	.block-dark & {
+		color: $orange;
+	}
+}
+
+ul {
+	padding: 0;
+	list-style: none;
+	text-align: left;
+}
+li {
+	padding: 0 0 0 18px;
+	background: url(/img/arrow-blue.png) no-repeat 0 10px;
+	background-size: 4px 8px;
+	.block-dark & {
+		background-image: url(/img/arrow-orange.png);
+	}
+}
+
+h2 {
+	@include title-underline();
+}
+
+h3 {
+	@include title-underline();
+	&:after {
+		margin-bottom: 0;
+	}
+}
+
+nav {
+	ul {
+		margin: 0;
+	}
+	li {
+		padding: 0;
+		background: none;
+		background-size: auto;
+		.block-dark & {
+			background: none;
+		}
+	}
+}
+.img-responsive{
+	display: block;
+	height: auto;
+	max-width: 100%;
+}

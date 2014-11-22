@@ -1,0 +1,38 @@
+.block-type-content {
+	text-align: center;
+	.wrap {
+		max-width: 700px;
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.menu-left-nav & {
+		text-align: left;
+		.wrap{
+			padding-left: 0;
+			padding-right: 0;
+		}
+		h2 {
+			padding: 0;
+			font-size: $font-size-h4;
+			font-weight: 400;
+			text-align: left;
+			@include title-underline();
+			&:after{
+				margin: ($line-height/2) 0 0 0;
+			}
+		}
+	}
+	.menu-left-content & {
+		text-align: left;
+		.wrap {
+			max-width: none;
+		}
+		h2 {
+			text-align: left;
+			&:after {
+				margin-left: 0;
+			}
+		}
+	}
+}

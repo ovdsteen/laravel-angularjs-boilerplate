@@ -1,0 +1,74 @@
+body {
+	color: $body-color;
+	font: 400 $font-size $font-body;
+	letter-spacing: .02em;
+	line-height: $line-height * 1.1;
+}
+
+.block-dark {
+	color: #bbbaba;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+	margin: 0 0 ($line-height * 1.25);
+	color: #151515;
+	font: 100 30px $font-heading;
+	letter-spacing: .15em;
+	line-height: $line-height;
+	text-align: center;
+	text-transform: uppercase;
+	.block-dark & {
+		color: #fff;
+	}
+}
+
+h1 {
+	font-size: ceil(($font-size-h1/100)*70);
+	font-weight: 100;
+}
+h2 {
+	margin: 0 0 $line-height;
+	line-height: $line-height * 1.5;
+	font-size: ceil(($font-size-h2/100)*80);
+}
+h3 {
+	font-size: ceil(($font-size-h2/100)*80);
+	letter-spacing: .1em;
+	line-height: $line-height * 1.1
+}
+h4 {
+	font-size: $font-size-h4;
+	font-weight: 100;
+	letter-spacing: .15em;
+	text-align: left;
+}
+
+p {
+	margin: 0 0 ($line-height * 1.25);
+}
+ul {
+	margin: 0 0 ($line-height * 1.25);
+}
+
+
+@include bpm() {
+	h1, h2, h3, h4 {
+		margin-bottom: $line-height;
+	}
+	h1 {
+		font-size: $font-size-h1;
+	}
+	h2 {
+		font-size: $font-size-h2;
+	}
+	h3 {
+		font-size: $font-size-h3;
+	}
+	p {
+		margin: 0 0 $line-height;
+	}
+	ul {
+		margin: 0 0 $line-height;
+	}
+}
