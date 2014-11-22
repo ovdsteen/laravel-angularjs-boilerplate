@@ -15,3 +15,11 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+// =============================================
+// API ROUTES ==================================
+// =============================================
+Route::group(array('prefix' => 'api'), function() {
+	Route::resource('passwords', 'PasswordsController');
+});
+
