@@ -22,6 +22,7 @@ Route::get('/modals/password', function() {
 // =============================================
 Route::group(array('prefix' => 'api'), function() {
 	Route::resource('passwords', 'PasswordsController');
+	Route::resource('clients', 'ClientsController');
 });
 
 // =============================================
