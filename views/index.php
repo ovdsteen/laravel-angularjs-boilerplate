@@ -25,11 +25,33 @@
 		<form ng-submit="submitPassword()">
 
 			<div class="form-group">
-				<input type="text" class="form-control input-sm" name="name" ng-model="passwordData.name" placeholder="Name">
+				<select class="form-control" required="true" name="client_id" ng-model="passwordData.client_id">
+					<option>Client</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="note" ng-model="passwordData.note" placeholder="make a note">
+				<input type="text" class="form-control" required="true" name="name" ng-model="passwordData.name" placeholder="Name">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" required="true" name="username" ng-model="passwordData.username" placeholder="Username">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" required="true" name="password" ng-model="passwordData.password" placeholder="Password">
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" name="url" ng-model="passwordData.url" placeholder="URL">
+			</div>
+
+			<div class="form-group">
+				<textarea class="form-control" rows="3" name="note" ng-model="passwordData.note" placeholder="make a note"></textarea>
 			</div>
 
 			<div class="form-group text-right">
