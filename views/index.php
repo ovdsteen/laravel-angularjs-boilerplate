@@ -69,7 +69,9 @@
 			<tr ng-repeat="password in passwords">
 				<td>{{ password.id }}</td>
 				<td>{{ password.name }}</td>
-				<td>{{ password.note }}</td>
+				<td>
+ 					<i ng-if="password.note" class="fa fa-info-circle fa-1x" popover-placement="top" popover="{{ password.note }}" ></i>
+				</td>
 				<td>
 					<a ng-click="open(password.id)" href="#"><i class="fa fa-pencil"></i></a>
 					<a href="#" ng-click="deletePassword(password.id)" class="text-muted"><i class="fa fa-trash"></i></a>
