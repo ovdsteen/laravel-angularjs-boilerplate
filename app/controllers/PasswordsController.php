@@ -35,10 +35,14 @@ class PasswordsController extends \BaseController {
 	public function store()
 	{
 		$input = Input::all();
+
 		$validation = Validator::make($input, Password::$rules);
 
 		if ($validation->passes())
 		{
+			// angular post client model
+			$input['client_id'] = $input['client']['id'];
+			unset($input['client']);
 
 			$this->password->create($input);
 

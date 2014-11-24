@@ -25,13 +25,7 @@
 		<form ng-submit="submitPassword()">
 
 			<div class="form-group">
-				<select class="form-control" required="true" name="client_id" ng-model="passwordData.client_id">
-					<option>Client</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>
+				<select class="form-control" name="client_id" ng-model="passwordData.client" ng-options="opt as opt.title for opt in clients"></select>
 			</div>
 
 			<div class="form-group">

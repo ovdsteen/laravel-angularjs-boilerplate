@@ -1,12 +1,16 @@
 angular.module('controller', [])
 
-	.controller('mainController', function($scope, $http, $modal, $log, Password) {
+	.controller('mainController', function($scope, $http, $modal, $log, Password, Client) {
 
 		$scope.loading = true;
 
 		Password.all().success(function(data) {
 			$scope.passwords = data;
 			$scope.loading = false;
+		});
+
+		Client.all().success(function(data) {
+			$scope.clients = data;
 		});
 
 		$scope.open = function (id) {
