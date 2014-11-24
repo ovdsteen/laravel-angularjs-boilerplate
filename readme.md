@@ -29,7 +29,7 @@ Putting it all together is time consuming. Therefore this simple boilerplate can
 ##### 01 - Cloning repository
 
 ```bash
-git clone
+git clone git@github.com:ovdsteen/laravel-angularjs-boilerplate.git
 ```
 
 ##### 02 - Composer install
