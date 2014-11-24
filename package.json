@@ -13,7 +13,7 @@
 		"grunt-env": "0.4",
 		"grunt-mkdir": "0.1",
 		"grunt-nodemon": "~0.1.2",
-		"grunt-sass": "0.14",
+		"grunt-contrib-less": "~0.11.0",
 		"matchdep": "0.3"
 	}
 }

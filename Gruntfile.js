@@ -17,7 +17,7 @@ module.exports = function(grunt){
 
 		concurrent: {
 			install: {
-				tasks: ['mkdir', 'sass', 'browserify', 'bower_concat', 'uglify' ],
+				tasks: ['mkdir', 'less', 'browserify', 'bower_concat', 'uglify' ],
 				options:{
 					limit: 5
 				}
@@ -27,12 +27,6 @@ module.exports = function(grunt){
 				options: {
 					logConcurrentOutput: true
 				}
-			}
-		},
-
-		sass: {
-			options: {
-				compress: true
 			}
 		},
 
@@ -55,8 +49,26 @@ module.exports = function(grunt){
 
 		bower_concat: {
 			all: {
-				dest: './public/js/lib.js'
+				dest: 'public/js/lib.js'
 			},
+		},
+
+		less: {
+			development: {
+				files: {
+					"public/css/base.css": "src/less/base.less"
+				}
+			},
+			production: {
+				options: {
+					compress: true,
+					yuicompress: true,
+					optimization: 2
+				},
+				files: {
+					"public/css/base.min.css": "src/less/base.less"
+				}
+			}
 		},
 
 		nodemon: {
@@ -70,61 +82,17 @@ module.exports = function(grunt){
 			},
 			js: {
 				files: ['src/js/*.js', 'src/js/**/*.js'],
-				tasks: ['browserify']
+				tasks: ['browserify', 'uglify']
 			},
 			css: {
-				files: ['src/css/*.scss', 'src/css/**/*.scss'],
-				tasks: ['sass']
+				files: ['src/less/*.less', 'src/less/**/*.less'],
+				tasks: ['less']
 			},
 			views: {
 				files: ['app/views/**/*.php']
 			}
 		}
 	};
-
-	var readCssDir = function(dir, target){
-		if (!fs.existsSync(dir)) return;
-
-		var count = 0, hasSubdirs, filePath,
-			match, name, input, output, globs;
-
-		fs.readdirSync(dir)
-		.forEach(function(fileName){
-			if (/^_/.test(fileName)) return;
-
-			if (!config.sass[target]){
-				config.sass[target] = {files: {}};
-			}
-
-			filePath = dir + '/' + fileName;
-			if (fs.statSync(filePath).isDirectory()){
-				hasSubdirs = true;
-				return;
-			}
-
-			match = fileName.match(/(.*)\.scss/);
-			if (!match) return;
-
-			name = fileName.match(/(.*)\.scss/)[1];
-			input = dir + '/' + name + '.scss';
-			output = 'public/css/' + name + '.css';
-			config.sass[target].files[output] = input;
-			count ++;
-		});
-
-		if (count > 0){
-			globs = [dir + '/*.scss'];
-			if (hasSubdirs){
-				globs.push(dir + '/**/*.scss');
-			}
-			config.watch[target] = {
-				files: globs,
-				tasks: ['sass:' + target]
-			};
-		}
-	};
-
-	readCssDir(__dirname + '/src/css', 'base');
 
 	grunt.initConfig(config);
 

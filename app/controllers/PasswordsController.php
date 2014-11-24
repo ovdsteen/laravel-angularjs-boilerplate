@@ -4,6 +4,18 @@ use App\Models\Password;
 class PasswordsController extends \BaseController {
 
 	/**
+	* Password Repository
+	*
+	* @var Password
+	*/
+	protected $password;
+
+	public function __construct(Password $password)
+	{
+		$this->password = $password;
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 * GET /passwords
 	 *
@@ -11,18 +23,7 @@ class PasswordsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Response::json(Password::get());
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /passwords/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		return Response::json( $this->password->get() );
 	}
 
 	/**
@@ -33,33 +34,32 @@ class PasswordsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
-	}
+		$input = Input::all();
+		$validation = Validator::make($input, Password::$rules);
 
+		if ($validation->passes())
+		{
+
+			$this->password->create($input);
+
+			return Response::json( array('message'=>'done') );
+
+		}
+
+	}
 	/**
 	 * Display the specified resource.
-	 * GET /passwords/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function show($id)
 	{
-		//
-	}
+		$password = $this->password->findOrFail($id);
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /passwords/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+		return Response::json( $password );
 
+	}
 	/**
 	 * Update the specified resource in storage.
 	 * PUT /passwords/{id}
@@ -69,7 +69,25 @@ class PasswordsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+
+		$input = array_except(Input::all(), '_method');
+
+		//dd($input);
+
+		$validation = Validator::make($input, Password::$rules);
+
+		if ($validation->passes())
+		{
+			$password = $this->password->find($id);
+			$password->update($input);
+
+			return Response::json( $password );
+
+		}else{
+			return Response::json( array('message'=>'error validation'),400 );
+		}
+
+
 	}
 
 	/**
@@ -81,7 +99,8 @@ class PasswordsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->password->find($id)->delete();
+		return Response::json( array('message'=>'deleted') );
 	}
 
 }
