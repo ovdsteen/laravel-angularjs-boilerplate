@@ -14,8 +14,11 @@
 Route::get('/', function() {
 	return View::make('index');
 });
-Route::get('/modals/password', function() {
-	return View::make('modals.password');
+Route::get('/modals/password/edit', function() {
+	return View::make('modals.password.edit');
+});
+Route::get('/modals/password/create', function() {
+	return View::make('modals.password.create');
 });
 // =============================================
 // API ROUTES ==================================

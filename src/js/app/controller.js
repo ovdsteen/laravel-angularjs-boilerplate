@@ -9,17 +9,13 @@ angular.module('controller', [])
 			$scope.loading = false;
 		});
 
-		Client.all().success(function(data) {
-			$scope.clients = data;
-		});
-
-		$scope.open = function (id) {
+		$scope.edit = function (id) {
 
 			Password.get(id).success(function(data) {
 
 				var modalInstance = $modal.open({
-					templateUrl: '/modals/password',
-					controller: 'modalController',
+					templateUrl: '/modals/password/edit',
+					controller: 'modalEditController',
 					resolve: {
 						modalData: function () {
 							return data;
@@ -37,19 +33,26 @@ angular.module('controller', [])
 
 		};
 
-		$scope.submitPassword = function() {
+		$scope.create = function () {
 
-			$scope.loading = true;
+			Client.all().success(function(data) {
 
-			Password.save($scope.passwordData).success(function(data) {
-
-				Password.all().success(function(getData) {
-					$scope.passwords = getData;
-					$scope.loading = false;
+				var modalInstance = $modal.open({
+					templateUrl: '/modals/password/create',
+					controller: 'modalCreateController',
+					resolve: {
+						clients: function () {
+							return data;
+						},
+					}
 				});
 
-			}).error(function(data) {
-				console.log(data);
+				modalInstance.result.then(function (items) {
+					$scope.passwords = items;
+				}, function () {
+					$log.info('Modal dismissed at: ' + new Date());
+				});
+
 			});
 
 		};
@@ -68,10 +71,7 @@ angular.module('controller', [])
 
 		};
 
-	}).controller('modalController', function ($scope, $modalInstance, modalData, Password) {
-
-		// Please note that $modalInstance represents a modal window (instance) dependency.
-		// It is not the same as the $modal service used above.
+	}).controller('modalEditController', function ($scope, $modalInstance, modalData, Password) {
 
 		$scope.modalData = modalData;
 
@@ -81,6 +81,32 @@ angular.module('controller', [])
 			Password.update($scope.modalData).success(function(data) {
 
 				Password.all().success(function(getData) {
+					$scope.loading = false;
+					$modalInstance.close(getData);
+				});
+
+			}).error(function(data) {
+				console.log(data);
+			});
+
+		};
+
+		$scope.cancel = function () {
+			$modalInstance.dismiss('cancel');
+		};
+
+	}).controller('modalCreateController', function ($scope, $modalInstance, clients, Password) {
+
+		$scope.clients = clients;
+
+		$scope.ok = function () {
+
+			$scope.loading = true;
+
+			Password.save($scope.modalData).success(function(data) {
+
+				Password.all().success(function(getData) {
+					$scope.loading = false;
 					$modalInstance.close(getData);
 				});
 

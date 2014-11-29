@@ -17,42 +17,14 @@
 
 	<div class="col-md-8 col-md-offset-2" >
 
-		<div class="page-header">
+		<div class="page-header clearfix">
 			<h2>Passwords</h2>
 			<h4>password system</h4>
+			<button type="submit" ng-click="create()" class="btn btn-primary btn-lg pull-right">New</button>
+			<div class="form-group col-md-6">
+				<input type="text" class="form-control" name="search" ng-model="search" placeholder="Go find some passwords">
+			</div>
 		</div>
-
-		<form ng-submit="submitPassword()">
-
-			<div class="form-group">
-				<select class="form-control" name="client_id" ng-model="passwordData.client" ng-options="opt as opt.title for opt in clients"></select>
-			</div>
-
-			<div class="form-group">
-				<input type="text" class="form-control" required="true" name="name" ng-model="passwordData.name" placeholder="Name">
-			</div>
-
-			<div class="form-group">
-				<input type="text" class="form-control" required="true" name="username" ng-model="passwordData.username" placeholder="Username">
-			</div>
-
-			<div class="form-group">
-				<input type="text" class="form-control" required="true" name="password" ng-model="passwordData.password" placeholder="Password">
-			</div>
-
-			<div class="form-group">
-				<input type="text" class="form-control" name="url" ng-model="passwordData.url" placeholder="URL">
-			</div>
-
-			<div class="form-group">
-				<textarea class="form-control" rows="3" name="note" ng-model="passwordData.note" placeholder="make a note"></textarea>
-			</div>
-
-			<div class="form-group text-right">
-				<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-			</div>
-
-		</form>
 
 		<p class="text-center" ng-show="loading"><i class="fa fa-cog fa-spin"></i></p>
 
@@ -73,7 +45,7 @@
  					<i ng-if="password.note" class="fa fa-info-circle fa-1x" popover-placement="top" popover="{{ password.note }}" ></i>
 				</td>
 				<td>
-					<a ng-click="open(password.id)" href="#"><i class="fa fa-pencil"></i></a>
+					<a ng-click="edit(password.id)" href="#"><i class="fa fa-pencil"></i></a>
 					<a href="#" ng-click="deletePassword(password.id)" class="text-muted"><i class="fa fa-trash"></i></a>
 				</td>
 			</tr>

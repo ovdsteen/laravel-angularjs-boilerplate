@@ -46,9 +46,13 @@ chmod -R 0777 app/storage
 ```
 
 ##### 04 - Database
-First create a database and adjust the file `app/database.php`. Then run the migration
+First create a database and adjust the file `app/database.php`. Then run migrate
 ```bash
-php artisan migrate:refresh --seed
+php artisan migrate
+```
+Then seed the database
+```bash
+php artisan db:seed
 ```
 
 ##### 05 - Run grunt (watch)
